@@ -5,7 +5,7 @@ Part of FreeCodeCamp FARM tutorial.
 ...
 
 ## References
-- [FreeCodeCamp Tutorial](https://www.youtube.com/watch?v=OzUzrs8uJl8)
+- [FreeCodeCamp Tutorial: FARM Stack Course - FastAPI, React, MongoDB](https://www.youtube.com/watch?v=OzUzrs8uJl8)
 - [Install MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
 
 ## Running
