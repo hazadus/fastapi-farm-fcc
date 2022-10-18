@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from model import ToDo
 import database
-#from database import get_todo, add_todo, edit_todo, delete_todo
 
 app = FastAPI()
 app.add_middleware(
@@ -33,7 +32,7 @@ async def get_todo(todo_id):
 
 @app.get('/all-todos/')
 async def get_all_todos():
-    response = await get_all_todos()
+    response = await database.get_all_todos()
     return response
 
 
@@ -48,9 +47,9 @@ async def add_todo(todo: ToDo):
 
 @app.put('/edit-todo/{ToDo}', response_model=ToDo)  # nb: PUT verb for update
 async def edit_todo(todo: ToDo):  # we assume that we get *edited* to-do
-    response = await edit_todo(todo_id=todo.id,
-                               new_title=todo.title,
-                               new_description=todo.description)
+    response = await database.edit_todo(todo_id=todo.id,
+                                        new_title=todo.title,
+                                        new_description=todo.description)
     if response:
         return response
     raise HTTPException(status_code=404,
@@ -59,7 +58,7 @@ async def edit_todo(todo: ToDo):  # we assume that we get *edited* to-do
 
 @app.delete('/delete-todo/{todo_id}')
 async def delete_todo(todo_id):
-    response = delete_todo(todo_id=todo_id)
+    response = await database.delete_todo(todo_id=todo_id)
     if response:
         return {
             'status': 'success',

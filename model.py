@@ -3,6 +3,6 @@ from typing import Optional
 
 
 class ToDo(BaseModel):
-    id: Optional[str] = ''
+    id: Optional[str] = ''  # We will generate UUIDs by ourselves!
     title: str
     description: str
