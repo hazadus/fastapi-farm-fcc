@@ -7,7 +7,7 @@ import database
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:3000'],
+    allow_origins=['*'],  # ['http://localhost:3000']
     allow_credentials=True,
     allow_methods=['*'],
     allow_headers=['*']
@@ -36,7 +36,7 @@ async def get_all_todos():
     return response
 
 
-@app.post(f'/add-todo/{ToDo}', response_model=ToDo)
+@app.post('/add-todo/{ToDo}', response_model=ToDo)
 async def add_todo(todo: ToDo):
     response = await database.add_todo(todo)
     if response:
