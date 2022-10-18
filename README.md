@@ -9,6 +9,7 @@ Part of FreeCodeCamp FARM tutorial: to-do list API.
 - [Install MongoDB on Mac OS](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
 - [Install MongoDB on Ubuntu](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 - [Motor: Asynchronous Python driver for MongoDB](https://motor.readthedocs.io/en/stable/)
+- [FastAPI CORS Docs](https://fastapi.tiangolo.com/tutorial/cors/)
 
 ## Running
 ```bash

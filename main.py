@@ -7,7 +7,7 @@ import database
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],  # ['http://localhost:3000']
+    allow_origins=['*'],  # Allow all for debug purposes ['http://localhost:3000']
     allow_credentials=True,
     allow_methods=['*'],
     allow_headers=['*']
@@ -36,7 +36,8 @@ async def get_all_todos():
     return response
 
 
-@app.post('/add-todo/{ToDo}', response_model=ToDo)
+@app.post('/add-todo/', response_model=ToDo)  # NB: There should be NO {}s in URL when you pass class!!!
+# @app.post('/add-to do/{To Do}', response_model=To Do)  # This is WRONG, caused bugs with frontend!
 async def add_todo(todo: ToDo):
     response = await database.add_todo(todo)
     if response:
