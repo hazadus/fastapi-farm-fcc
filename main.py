@@ -14,14 +14,20 @@ app.add_middleware(
 )
 
 
-@app.get('/')
+@app.get('/', tags=['Test'])  # 'tags' is used to group APIs in '/docs/' web interface.
 async def root():
     return {
-        'message': 'Hello API world! fastapi-farm-fcc serving.'
+        'message': 'Hello API world! fastapi-farm-fcc serving: simple ToDos API.'
     }
 
 
-@app.get('/todo/{todo_id}', response_model=ToDo)
+@app.get('/all-todos/', tags=['ToDos'])
+async def get_all_todos():
+    response = await database.get_all_todos()
+    return response
+
+
+@app.get('/todo/{todo_id}', response_model=ToDo, tags=['ToDos'])
 async def get_todo(todo_id):
     response = await database.get_todo(todo_id)
     if response:
@@ -30,13 +36,8 @@ async def get_todo(todo_id):
                         detail=f'No todos with id={todo_id}')
 
 
-@app.get('/all-todos/')
-async def get_all_todos():
-    response = await database.get_all_todos()
-    return response
-
-
-@app.post('/add-todo/', response_model=ToDo)  # NB: There should be NO {}s in URL when you pass class!!!
+@app.post('/add-todo/', response_model=ToDo,   # NB: There should be NO {}s in URL when you pass class!!!
+          tags=['ToDos'])
 # @app.post('/add-to do/{To Do}', response_model=To Do)  # This is WRONG, caused bugs with frontend!
 async def add_todo(todo: ToDo):
     response = await database.add_todo(todo)
@@ -46,7 +47,7 @@ async def add_todo(todo: ToDo):
                         detail='Something went wrong - Cant add todo - Bad request.')
 
 
-@app.put('/edit-todo/{ToDo}', response_model=ToDo)  # nb: PUT verb for update
+@app.put('/edit-todo/{ToDo}', response_model=ToDo, tags=['ToDos'])  # nb: PUT verb for update
 async def edit_todo(todo: ToDo):  # we assume that we get *edited* to-do
     response = await database.edit_todo(todo_id=todo.id,
                                         new_title=todo.title,
@@ -57,7 +58,7 @@ async def edit_todo(todo: ToDo):  # we assume that we get *edited* to-do
                         detail=f'No todos with id={todo.id}')
 
 
-@app.delete('/delete-todo/{todo_id}')
+@app.delete('/delete-todo/{todo_id}', tags=['ToDos'])
 async def delete_todo(todo_id):
     response = await database.delete_todo(todo_id=todo_id)
     if response:
